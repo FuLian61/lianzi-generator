@@ -1,7 +1,7 @@
-package com.fulian.generator;
+package ${basePackage}.generator;
 
+import ${basePackage}.model.DataModel;
 import cn.hutool.core.io.FileUtil;
-import com.fulian.model.MainTemplateConfig;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,20 +15,6 @@ import java.nio.file.Paths;
  * 动态文件生成器
  */
 public class DynamicGenerator {
-
-    public static void main(String[] args) throws IOException, TemplateException {
-        String projectPath = System.getProperty("user.dir") + File.separator + "lianzi-generator-basic";
-        String inputPath = projectPath + File.separator + "src/main/resources/templates/MainTemplate.java.ftl";
-        String outputPath = projectPath + File.separator + "MainTemplate.java";
-
-        // 数据模型
-        MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
-        mainTemplateConfig.setAuthor("fulian");
-        mainTemplateConfig.setOutputText("求和结果");
-        mainTemplateConfig.setLoop(false);
-
-        doGenerate(inputPath,outputPath,mainTemplateConfig);
-    }
 
     /**
      * 生成文件
@@ -59,7 +45,6 @@ public class DynamicGenerator {
         if (!FileUtil.exist(outputPath)) {
             FileUtil.touch(outputPath);
         }
-
         // 解决中文乱码问题
         Template template = configuration.getTemplate(templateName,"utf-8");
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(Paths.get(outputPath)), StandardCharsets.UTF_8));
