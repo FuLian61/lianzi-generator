@@ -1,12 +1,13 @@
 package com.fulian;
 
-/**
- * @Author 浮涟
- * @Since ${DATE}
- * @Version 1.0
- */
+import com.fulian.cli.CommandExecutor;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+//        args = new String[]{"generate", "-l","-a","-o"};
+//        args = new String[]{"config"};
+//        args = new String[]{"list"};
+        CommandExecutor commandExecutor = new CommandExecutor();
+        commandExecutor.doExecute(args);
     }
 }
