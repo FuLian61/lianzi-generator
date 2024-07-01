@@ -6,8 +6,9 @@
   "author": "fulian",
   "createTime": "2024-06-29",
   "fileConfig": {
-    "inputRootPath": "D:/code/lianzi-generator/lianzi-generator-demo-projects/acm-template-pro",
+    "inputRootPath": ".source/acm-template-pro",
     "outputRootPath": "generated",
+    "sourceRootPath": "D:/code/lianzi-generator/lianzi-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
       {

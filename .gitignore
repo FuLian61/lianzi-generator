@@ -3,6 +3,8 @@
 generated
 lianzi-generator.iml
 lianzi-generator-basic.iml
+lianzi-generator-maker.iml
+*.iml
 
 ### Java template
 # Compiled class file
