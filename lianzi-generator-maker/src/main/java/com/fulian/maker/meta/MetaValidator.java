@@ -12,6 +12,7 @@ import com.fulian.maker.meta.enums.ModelTypeEnum;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 元信息校验
@@ -32,11 +33,23 @@ public class MetaValidator {
         }
 
         List<Meta.ModelConfig.ModelInfo> modelInfoList = modelConfig.getModels();
-        if (!CollUtil.isEmpty(modelInfoList)){
+        if (!CollUtil.isNotEmpty(modelInfoList)) {
             return;
         }
 
         for (Meta.ModelConfig.ModelInfo modelInfo : modelInfoList) {
+            // 为 group，不校验
+            String groupKey = modelInfo.getGroupKey();
+            if (StrUtil.isNotEmpty(groupKey)) {
+                // 生成中间参数
+                List<Meta.ModelConfig.ModelInfo> subModelInfoList = modelInfo.getModels();
+                String allArgsStr = modelInfo.getModels().stream()
+                        .map(subModelInfo -> String.format("\"--%s\"", subModelInfo.getFieldName()))
+                        .collect(Collectors.joining(", "));
+                modelInfo.setAllArgsStr(allArgsStr);
+                continue;
+            }
+
             // 输出路径默认值
             String fieldName = modelInfo.getFieldName();
             if (StrUtil.isBlank(fieldName)) {
@@ -89,6 +102,11 @@ public class MetaValidator {
             return;
         }
         for (Meta.FileConfig.FileInfo fileInfo : fileInfoList) {
+            String type = fileInfo.getType();
+            // 类型为 group，不校验
+            if (FileTypeEnum.GROUP.getValue().equals(type)) {
+                continue;
+            }
             // inputPath：必填
             String inputPath = fileInfo.getInputPath();
             if (StrUtil.isBlank(inputPath)) {
@@ -128,11 +146,11 @@ public class MetaValidator {
     private static void validAndFillMetaRoot(Meta meta) {
         // 基础信息校验和默认值
         String name = StrUtil.blankToDefault(meta.getName(), "my-generator");
-        String description = StrUtil.emptyToDefault(meta.getDescription(),"我的模板代码生成器");
-        String basePackage = StrUtil.blankToDefault(meta.getBasePackage(),"com.fulian");
-        String version = StrUtil.emptyToDefault(meta.getVersion(),"1.0");
-        String author = StrUtil.emptyToDefault(meta.getAuthor(),"fulian");
-        String createTime = StrUtil.emptyToDefault(meta.getCreateTime(),DateUtil.now());
+        String description = StrUtil.emptyToDefault(meta.getDescription(), "我的模板代码生成器");
+        String basePackage = StrUtil.blankToDefault(meta.getBasePackage(), "com.fulian");
+        String version = StrUtil.emptyToDefault(meta.getVersion(), "1.0");
+        String author = StrUtil.emptyToDefault(meta.getAuthor(), "fulian");
+        String createTime = StrUtil.emptyToDefault(meta.getCreateTime(), DateUtil.now());
 
         meta.setName(name);
         meta.setDescription(description);
