@@ -1,6 +1,5 @@
 package com.fulian.maker.generator.file;
 
-import com.fulian.maker.model.DataModel;
 import freemarker.template.TemplateException;
 
 import java.io.File;
@@ -29,15 +28,5 @@ public class FileGenerator {
         String dynamicInputPath = projectPath + File.separator + "src/main/resources/templates/MainTemplate.java.ftl";
         String dynamicoutputPath = projectPath + File.separator + "acm-template/src/com/fulian/acm/MainTemplate.java";
         DynamicFileGenerator.doGenerate(dynamicInputPath,dynamicoutputPath,model);
-    }
-
-    public static void main(String[] args) throws TemplateException, IOException {
-
-        // 数据模型
-        DataModel dataModel = new DataModel();
-        dataModel.setAuthor("fulian");
-        dataModel.setOutputText("求和结果");
-        dataModel.setLoop(false);
-        doGenerate(dataModel);
     }
 }
