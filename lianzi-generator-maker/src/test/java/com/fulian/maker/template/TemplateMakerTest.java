@@ -1,9 +1,12 @@
 package com.fulian.maker.template;
 
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.json.JSONUtil;
 import com.fulian.maker.meta.Meta;
 import com.fulian.maker.template.enums.FileFilterRangeEnum;
 import com.fulian.maker.template.enums.FileFilterRuleEnum;
 import com.fulian.maker.template.model.FileFilterConfig;
+import com.fulian.maker.template.model.TemplateMakerConfig;
 import com.fulian.maker.template.model.TemplateMakerFileConfig;
 import com.fulian.maker.template.model.TemplateMakerModelConfig;
 import org.junit.Test;
@@ -47,7 +50,7 @@ public class TemplateMakerTest {
         List<TemplateMakerModelConfig.ModelInfoConfig> modelInfoConfigList = Arrays.asList(modelInfoConfig1);
         templateMakerModelConfig.setModels(modelInfoConfigList);
 
-        long id = TemplateMaker.makeTemplate(meta, originProjectPath, templateMakerFileConfig, templateMakerModelConfig, 1L);
+        long id = TemplateMaker.makeTemplate(meta, originProjectPath, templateMakerFileConfig, templateMakerModelConfig, null, 1L);
         System.out.println(id);
     }
 
@@ -80,7 +83,72 @@ public class TemplateMakerTest {
         List<TemplateMakerModelConfig.ModelInfoConfig> modelInfoConfigList = Arrays.asList(modelInfoConfig1);
         templateMakerModelConfig.setModels(modelInfoConfigList);
 
-        long id = TemplateMaker.makeTemplate(meta, originProjectPath, templateMakerFileConfig, templateMakerModelConfig, 1L);
+        long id = TemplateMaker.makeTemplate(meta, originProjectPath, templateMakerFileConfig, templateMakerModelConfig, null, 1L);
+        System.out.println(id);
+    }
+
+    /**
+     * 使用 JSON 制作模板
+     */
+    @Test
+    public void testMakeTemplateWithJSON() {
+        String configStr = ResourceUtil.readUtf8Str("templateMaker.json");
+        TemplateMakerConfig templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        long id = TemplateMaker.makeTemplate(templateMakerConfig);
+        System.out.println(id);
+    }
+
+    /**
+     * 制作 Spring Boot 模板
+     */
+
+    @Test
+    public void makeSpringBootTemplate() {
+        // 项目基本信息
+        String rootPath = "examples/springboot-init/";
+        String configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker.json");
+        TemplateMakerConfig templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        long id = TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 替换生成的代码包名
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker1.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 控制是否生成帖子相关
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker2.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 控制是否需要开启跨域
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker3.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 控制是否需要开启 Knife4jConfig 接口文档配置
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker4.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 自定义 Knife4jConfig 接口文档配置
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker5.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 自定义 MySQL 数据库配置
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker6.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 控制是否开启 Redis
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker7.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
+
+        // 控制是否开启 Es
+        configStr = ResourceUtil.readUtf8Str(rootPath + "templateMaker8.json");
+        templateMakerConfig = JSONUtil.toBean(configStr, TemplateMakerConfig.class);
+        TemplateMaker.makeTemplate(templateMakerConfig);
         System.out.println(id);
     }
 }
