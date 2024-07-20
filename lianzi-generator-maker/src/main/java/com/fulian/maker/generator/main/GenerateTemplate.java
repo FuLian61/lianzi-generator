@@ -3,6 +3,7 @@ package com.fulian.maker.generator.main;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 import com.fulian.maker.generator.JarGenerator;
 import com.fulian.maker.generator.ScriptGenerator;
 import com.fulian.maker.generator.file.DynamicFileGenerator;
@@ -39,16 +40,30 @@ public abstract class GenerateTemplate {
 
         // 5.生成精简版的程序（产物包）
         buildDist(outputPath, sourceCopyDestPath, jarPath, shellOutputFilePath);
+
+    }
+
+    /**
+     * 制作压缩包
+     *
+     * @param outputPath
+     * @return 压缩包路径
+     */
+    protected String buildZip(String outputPath) {
+        String zipPath = outputPath + ".zip";
+        ZipUtil.zip(outputPath, zipPath);
+        return zipPath;
     }
 
     /**
      * 生成精简版的程序
+     *
      * @param outputPath
      * @param sourceCopyDestPath
      * @param jarPath
      * @param shellOutputFilePath
      */
-    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
+    protected String buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
         String distoutputPath = outputPath + "-dist";
         // 拷贝 jar 包
         String targetAbsolutePath = distoutputPath + File.separator + "target";
@@ -60,10 +75,12 @@ public abstract class GenerateTemplate {
         FileUtil.copy(shellOutputFilePath + ".bat", distoutputPath, true);
         // 拷贝源模板文件
         FileUtil.copy(sourceCopyDestPath, distoutputPath, true);
+        return  distoutputPath;
     }
 
     /**
      * 封装脚本
+     *
      * @param outputPath
      * @param jarPath
      * @return
@@ -76,6 +93,7 @@ public abstract class GenerateTemplate {
 
     /**
      * 构建 jar 包
+     *
      * @param meta
      * @param outputPath jar 包绝对路径
      * @return
@@ -91,6 +109,7 @@ public abstract class GenerateTemplate {
 
     /**
      * 代码生成
+     *
      * @param meta
      * @param outputPath
      * @throws IOException
@@ -170,6 +189,7 @@ public abstract class GenerateTemplate {
 
     /**
      * 复制原始文件
+     *
      * @param meta
      * @param outputPath
      * @return

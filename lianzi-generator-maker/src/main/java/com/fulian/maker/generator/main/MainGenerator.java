@@ -1,4 +1,4 @@
-package com.fulian.maker.generator;
+package com.fulian.maker.generator.main;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
@@ -15,7 +15,8 @@ import java.io.IOException;
 public class MainGenerator extends GenerateTemplate {
 
     @Override
-    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
+    protected String buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) {
         System.out.println("不要给我输出 dist 啦！");
+        return "";
     }
 }
