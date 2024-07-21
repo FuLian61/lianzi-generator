@@ -51,8 +51,8 @@ const IndexPage: React.FC = () => {
    * @param tags
    */
   const tagListView = (tags?: String[]) => {
-    if (!tags) {
-      return <></>;
+    if (!tags || tags.length === 0) {
+      return <div style={{ marginBottom: 8 }}><Tag>暂无标签</Tag></div>;
     }
     return (
       <div style={{ marginBottom: 8 }}>
@@ -151,7 +151,7 @@ const IndexPage: React.FC = () => {
         renderItem={(data) => (
           <List.Item>
             <Link to={`/generator/detail/${data.id}`}>
-              <Card hoverable cover={<Image alt={data.name} src={data.picture} />}>
+              <Card hoverable cover={<Image alt={data.name} src={data.picture} height={200} />}>
                 <Card.Meta
                   title={<a>{data.name}</a>}
                   description={
