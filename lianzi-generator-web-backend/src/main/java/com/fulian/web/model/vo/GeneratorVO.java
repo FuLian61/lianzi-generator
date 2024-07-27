@@ -1,7 +1,7 @@
 package com.fulian.web.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.fulian.web.meta.Meta;
+import com.fulian.maker.meta.Meta;
 import com.fulian.web.model.entity.Generator;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

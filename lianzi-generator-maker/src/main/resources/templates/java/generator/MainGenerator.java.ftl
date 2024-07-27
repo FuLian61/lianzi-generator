@@ -1,6 +1,6 @@
-package com.fulian.generator;
+package ${basePackage}.generator;
 
-import com.fulian.model.DataModel;
+import ${basePackage}.model.DataModel;
 import freemarker.template.TemplateException;
 
 import java.io.File;

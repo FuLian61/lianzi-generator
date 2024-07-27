@@ -1,6 +1,6 @@
 package com.fulian.web.model.dto.generator;
 
-import com.fulian.web.meta.Meta;
+import com.fulian.maker.meta.Meta;
 import lombok.Data;
 
 import java.io.Serializable;
