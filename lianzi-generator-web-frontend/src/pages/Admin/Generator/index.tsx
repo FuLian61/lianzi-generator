@@ -1,11 +1,14 @@
 import CreateModal from '@/pages/Admin/Generator/components/CreateModal';
 import UpdateModal from '@/pages/Admin/Generator/components/UpdateModal';
-import { deleteGeneratorUsingPost, listGeneratorByPageUsingPost } from '@/services/backend/generatorController';
+import {
+  deleteGeneratorUsingPost,
+  listGeneratorByPageUsingPost,
+} from '@/services/backend/generatorController';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import {Button, message, Select, Space, Tag, Typography} from 'antd';
+import { Button, message, Select, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 
 /**
@@ -84,19 +87,19 @@ const GeneratorAdminPage: React.FC = () => {
       title: '标签',
       dataIndex: 'tags',
       valueType: 'text',
-      renderFormItem(schema){
+      renderFormItem(schema) {
         const { fieldProps } = schema;
         // @ts-ignore
-        return <Select mode= "tags" {...fieldProps} />
+        return <Select mode="tags" {...fieldProps} />;
       },
-      render(_,record){
-        if (!record.tags){
-          return <></>
+      render(_, record) {
+        if (!record.tags) {
+          return <></>;
         }
-        return JSON.parse(record.tags).map((tag : string)=> {
-          return <Tag key={tag}>{tag}</Tag>
-        })
-      }
+        return JSON.parse(record.tags).map((tag: string) => {
+          return <Tag key={tag}>{tag}</Tag>;
+        });
+      },
     },
     {
       title: '图片',
@@ -128,7 +131,7 @@ const GeneratorAdminPage: React.FC = () => {
       valueEnum: {
         0: {
           text: '默认',
-        }
+        },
       },
     },
     {
@@ -175,7 +178,7 @@ const GeneratorAdminPage: React.FC = () => {
   ];
   return (
     <div className="generator-admin-page">
-      <Typography.Title level={4} style={{marginBottom: 16}}>
+      <Typography.Title level={4} style={{ marginBottom: 16 }}>
         生成器管理
       </Typography.Title>
       <ProTable<API.Generator>

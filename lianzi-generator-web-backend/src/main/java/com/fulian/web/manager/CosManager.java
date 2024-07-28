@@ -33,12 +33,12 @@ public class CosManager {
 
     // bean 加载完成后执行
     @PostConstruct
-    public void init(){
+    public void init() {
         // 执行初始化逻辑
         System.out.println("Bean initialized!");
         // 多线程并发上传下载
         ExecutorService threadPool = Executors.newFixedThreadPool(32);
-        transferManager = new TransferManager(cosClient,threadPool);
+        transferManager = new TransferManager(cosClient, threadPool);
     }
 
     /**
@@ -70,7 +70,7 @@ public class CosManager {
     /**
      * 下载对象
      *
-     * @param key  唯一键
+     * @param key 唯一键
      * @return
      */
     public COSObject getObject(String key) {

@@ -5,7 +5,6 @@ import com.fulian.web.annotation.AuthCheck;
 import com.fulian.web.common.BaseResponse;
 import com.fulian.web.common.ErrorCode;
 import com.fulian.web.common.ResultUtils;
-import com.fulian.web.constant.FileConstant;
 import com.fulian.web.constant.UserConstant;
 import com.fulian.web.exception.BusinessException;
 import com.fulian.web.manager.CosManager;

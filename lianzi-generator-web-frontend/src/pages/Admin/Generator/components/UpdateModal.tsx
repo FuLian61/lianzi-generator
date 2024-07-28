@@ -61,7 +61,8 @@ const UpdateModal: React.FC<Props> = (props) => {
         form={{
           initialValues: {
             ...oldData,
-          tags: JSON.parse(oldData.tags || '[]')},
+            tags: JSON.parse(oldData.tags || '[]'),
+          },
         }}
         onSubmit={async (values: API.GeneratorAddRequest) => {
           const success = await handleUpdate({
