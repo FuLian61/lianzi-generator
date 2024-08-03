@@ -2,6 +2,9 @@ package com.fulian.web.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fulian.web.model.entity.Generator;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author 浮涟i
@@ -11,6 +14,8 @@ import com.fulian.web.model.entity.Generator;
  */
 public interface GeneratorMapper extends BaseMapper<Generator> {
 
+    @Select("select id,distPath from generator where isDelete = 1")
+    List<Generator> listDeletedGenerator();
 }
 
 
